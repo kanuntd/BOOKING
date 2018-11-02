@@ -1,0 +1,115 @@
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import com.toedter.calendar.JDayChooser;
+import com.toedter.calendar.JCalendar;
+
+public class FormSearch {
+
+	private JFrame frame;
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FormSearch window = new FormSearch();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public FormSearch() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.getContentPane().setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 35));
+		frame.getContentPane().setBackground(new Color(255, 204, 51));
+		frame.setBackground(Color.WHITE);
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 900, 653);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("SIZE");
+		lblNewLabel.setBackground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 40));
+		lblNewLabel.setBounds(119, 59, 72, 36);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JLabel lblDate = new JLabel("DATE");
+		lblDate.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 40));
+		lblDate.setBackground(Color.WHITE);
+		lblDate.setBounds(119, 108, 72, 36);
+		frame.getContentPane().add(lblDate);
+		
+		JLabel lblTime = new JLabel("TIME");
+		lblTime.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 40));
+		lblTime.setBackground(Color.WHITE);
+		lblTime.setBounds(119, 159, 72, 36);
+		frame.getContentPane().add(lblTime);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBackground(new Color(255, 255, 255));
+		comboBox.setBounds(220, 59, 177, 38);
+		frame.getContentPane().add(comboBox);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBackground(new Color(255, 255, 255));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"08.00", "09.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20.00"}));
+		comboBox_1.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 35));
+		comboBox_1.setBounds(220, 160, 87, 38);
+		frame.getContentPane().add(comboBox_1);
+		
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBackground(new Color(255, 255, 255));
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"08.00", "09.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20.00"}));
+		comboBox_2.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 35));
+		comboBox_2.setBounds(357, 160, 87, 38);
+		frame.getContentPane().add(comboBox_2);
+		
+		JLabel lblTo = new JLabel("to");
+		lblTo.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 35));
+		lblTo.setBackground(Color.WHITE);
+		lblTo.setBounds(319, 161, 26, 36);
+		frame.getContentPane().add(lblTo);
+		
+		JButton btnNewButton = new JButton("Search");
+		btnNewButton.setBackground(new Color(204, 204, 153));
+		btnNewButton.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 25));
+		btnNewButton.setBounds(467, 170, 87, 25);
+		frame.getContentPane().add(btnNewButton);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 238, 894, 380);
+		frame.getContentPane().add(panel);
+		
+		JCalendar calendar = new JCalendar();
+		calendar.setBounds(220, 111, 198, 55);
+		frame.getContentPane().add(calendar);
+		
+		
+	}
+}
