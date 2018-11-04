@@ -1,0 +1,26 @@
+import java.util.ArrayList;
+
+public class RoomService extends FormSearch {
+
+	public static void main(String[] args) {
+		int size = 128;
+		String date = "02-11-2018";
+		String tineStart = "18:00";
+		String timeStop = "19:00";
+		String username = "best";
+
+	}
+	public RoomService() {
+		
+	}
+	public ArrayList getRoom(int size, String date, String timeStart, String timeStop){
+		ArrayList<String> listroom = new ArrayList<>();
+		
+		return listroom;
+	}
+	public void updateBooking(int size, String date, String timeStart, String timeStop, String username) {
+		
+	}
+
+
+}
