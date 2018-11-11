@@ -1,0 +1,38 @@
+
+public class Room {
+	 String size="";
+     String date,timeStart,timeEnd;
+     
+    
+    public Room(String size,String date,String timeE, String timeS) {
+    	this.size = size;
+    	this.date = date;
+    	this.timeEnd = timeE;
+    	this.timeStart = timeS;
+    }
+
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+	public String getData() {
+		return date;
+	}
+	public void setData(String data) {
+		this.date = date;
+	}
+	public String getTimeStart() {
+		return timeStart;
+	}
+	public void setTimeStart(String timeStart) {
+		this.timeStart = timeStart;
+	}
+	public String getTimeEnd() {
+		return timeEnd;
+	}
+	public void setTimeEnd(String timeEnd) {
+		this.timeEnd = timeEnd;
+	}
+	
+     
+}

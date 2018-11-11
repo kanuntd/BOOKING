@@ -3,55 +3,20 @@ import java.util.ArrayList;
 import org.bson.Document;
 
 public class RoomService extends FormSearch {
-
-	public static void main(String[] args) {
-		int size = 128;
-		String date = "02-11-2018";
-		String timeStart = "15:00";
-		String timeEnd = "16:00";
-		String username = "best";
-		
-		/*ArrayList arr = new ArrayList<>();
-		System.out.println(getRoom(size,date,timeStart,timeEnd));*/
-
-	}
-	public RoomService() {
-		
-	}
-	public static ArrayList getRoom(int size, String date, String timeStart, String timeEnd){
+    public static ArrayList<Room> arr ;
+   public RoomService() {
+	   arr = new ArrayList<>();
+   }
+	public static ArrayList<Room> getRoom(String size, String date, String timeStart, String timeEnd,String room, String status){
 		RoomDao roomDao = new RoomDao();
-		if(size != 0 && date != null && timeStart != null && timeEnd != null) {
-			Document doc = new Document("timeStart",timeStart).append("timeEnd", timeEnd).append("size", size).append("date", date);
-			ArrayList<Document> listroom = roomDao.getRoomAll(doc);	
-			return listroom;
+		arr.add(new Room(size,date,timeStart,timeEnd,room,status));
+		//roomDao.getRoomAll(arr);
+		ArrayList<Room> s = roomDao.getRoomAll(arr);
+		if(s.size()==0) {
+			arr.add(new Room("","","","","",""));
+			return s;
 		}
-		else if(size != 0 && date != null && timeStart == null && timeEnd == null) {
-			Document doc = new Document().append("size", size).append("date", date);
-			ArrayList<Document> listroom = roomDao.getRoomAll(doc);	
-			return listroom;
-		}
-		else if(size != 0 && date == null && timeStart != null && timeEnd != null) {
-			Document doc = new Document("timeStart",timeStart).append("timeEnd", timeEnd).append("size", size);
-			ArrayList<Document> listroom = roomDao.getRoomAll(doc);	
-			return listroom;
-		}
-		else if(size == 0 && date != null && timeStart != null && timeEnd != null) {
-			Document doc = new Document("timeStart",timeStart).append("timeEnd", timeEnd).append("date", date);
-			ArrayList<Document> listroom = roomDao.getRoomAll(doc);	
-			return listroom;
-		}
-		else {
-			Document doc = new Document();
-			ArrayList<Document> listroom = roomDao.getRoomAll(doc);	
-			return listroom;
-		}
-	}
-	public void updateBooking(int size, String date, String timeStart, String timeEnd, String username) {
-		Document doc = new Document("timeStart",timeStart).append("timeEnd", timeEnd).append("size", size).append("date", date);
-	}
-
-	public void Booking() {
-		
+		return s;
 	}
 
 }

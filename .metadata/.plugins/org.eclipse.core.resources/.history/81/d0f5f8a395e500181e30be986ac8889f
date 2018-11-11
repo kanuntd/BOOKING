@@ -1,0 +1,21 @@
+import java.util.ArrayList;
+
+import org.bson.Document;
+
+public class RoomService extends FormSearch {
+    public static ArrayList<Room> arr ;
+   public RoomService() {
+	   arr = new ArrayList<>();
+   }
+	public static ArrayList<Room> getRoom(String size, String date, String timeStart, String timeEnd,String room, String status){
+		RoomDao roomDao = new RoomDao();
+		arr.add(new Room(size,date,timeStart,timeEnd,room,status));
+		//roomDao.getRoomAll(arr);
+		ArrayList<Room> s = roomDao.getRoomAll(arr);
+		if(s.size()==0) {
+			arr.add(new Room("","","","","",""));
+		}
+		return s;
+	}
+
+}

@@ -1,0 +1,33 @@
+import java.util.ArrayList;
+
+import org.bson.Document;
+
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+
+public class RoomDao {
+    ConnectMongoDB connect;
+    MongoDatabase database;
+	RoomDao(){
+	  connect = new ConnectMongoDB();
+	  database = connect.getMongoDatabase();
+    }
+	
+	void getRoomAll(ArrayList<Room> arr2) {
+		MongoCollection  collection = database.getCollection("Booking");
+		Document doc = new Document("size",arr2.get(0).size);
+		MongoCursor<Room> cursor = collection.find(doc).iterator();		
+		ArrayList<Room> arr = new ArrayList<>();
+		try {
+		    while (cursor.hasNext()) {
+                System.out.println(cursor.next());
+		    }
+		} finally {
+		    cursor.close();
+		}
+
+	
+	}
+	
+}

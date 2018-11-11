@@ -1,0 +1,30 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.bson.Document;
+
+public class test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		///file test basic
+        RoomDao room = new RoomDao();  
+        ArrayList<Room> arr = new ArrayList<>();
+    	arr.add(new Room(128,"11-11-2018","15:00","16:00"));
+		room.getRoomAll(arr);
+     
+  
+ 
+        for(int i=0;i<arr.size();i++) {
+        	 
+        	 System.out.print(arr.get(i).size);   
+        	
+         }
+         
+       
+        
+         
+        
+	}
+
+}
