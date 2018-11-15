@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,7 +22,9 @@ import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -68,7 +71,7 @@ public class FormSearch extends JFrame {
 		getContentPane().setBackground(new Color(255, 204, 51));
 		setBackground(Color.WHITE);
 		setResizable(false);
-		setBounds(100, 100, 900, 653);
+		setBounds(100, 100, 1032, 672);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
@@ -93,19 +96,7 @@ public class FormSearch extends JFrame {
 		scroll.setPreferredSize(new Dimension(415, 410));
 		gui.add(scroll, BorderLayout.CENTER);
 
-//			ListSearch listSearch = new ListSearch(); System.out.println(date);
-//			listSearch.date.setText(date);	
-////			/*listSearch.size.setText(size);	
-////			listSearch.date.setText(date);	
-////			listSearch.timeStart.setText(timeStart);	
-////			listSearch.timeEnd.setText(timeEnd);	
-////			listSearch.status.setText(status);*/
-//			panel.add(listSearch.pannelsearch());
-//			panel.revalidate();
-//			int height = (int) panel.getPreferredSize().getHeight();
-//			scroll.getVerticalScrollBar().setValue(height);	
-//			}
-//		}
+		
 		panellist.setLayout(null);
 		panellist.add(gui);
 		contentPane.add(panellist);
@@ -131,14 +122,14 @@ public class FormSearch extends JFrame {
 
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 28));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "50", "100", "150", "200" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "", "50", "100", "150", "200" }));
 		comboBox.setBackground(new Color(255, 255, 255));
 		comboBox.setBounds(221, 44, 177, 38);
 		getContentPane().add(comboBox);
 
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBackground(new Color(255, 255, 255));
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"", "08:00", "09:00", "10:00", "11:00", "12:00",
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "", "08:00", "09:00", "10:00", "11:00", "12:00",
 				"13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" }));
 		comboBox_1.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 35));
 		comboBox_1.setBounds(221, 145, 87, 38);
@@ -146,7 +137,7 @@ public class FormSearch extends JFrame {
 
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setBackground(new Color(255, 255, 255));
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"", "08:00", "09:00", "10:00", "11:00", "12:00",
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] { "", "08:00", "09:00", "10:00", "11:00", "12:00",
 				"13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" }));
 		comboBox_2.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 35));
 		comboBox_2.setBounds(358, 145, 87, 38);
@@ -158,15 +149,19 @@ public class FormSearch extends JFrame {
 		lblTo.setBounds(320, 146, 26, 36);
 		getContentPane().add(lblTo);
 
-		JButton btnNewButton = new JButton("Search");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton search = new JButton("Search");
+		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				RoomService ss = new RoomService();
-				ArrayList<Room> arr = ss.getRoom(comboBox.getSelectedItem().toString(),dateChooser.getDateFormatString(),comboBox_1.getSelectedItem().toString(),comboBox_2.getSelectedItem().toString(),"","");
-				if(arr.size()==0) {
+	
+				
+				RoomService roomService = new RoomService();
+				ArrayList<Room> arr = roomService.getRoom(comboBox.getSelectedItem().toString(),
+						dateChooser.getDate(), comboBox_1.getSelectedItem().toString(),
+						comboBox_2.getSelectedItem().toString(), "", "");
+				
+				if (arr.size() == 0) {
 					panel.removeAll();
-					ListSearch listSearch = new ListSearch();			
+					ListSearch listSearch = new ListSearch();
 					listSearch.date.setText("------------------------Not found Room------------------------");
 					listSearch.room.setText("");
 					listSearch.size.setText("");
@@ -177,35 +172,36 @@ public class FormSearch extends JFrame {
 					panel.revalidate();
 					int height = (int) panel.getPreferredSize().getHeight();
 					scroll.getVerticalScrollBar().setValue(height);
-				}else {
+				} else {
 					panel.removeAll();
-				for (int i = 0; i < arr.size(); i++) {
+					for (int i = 0; i < arr.size(); i++) {
+
+						room = (String) arr.get(i).room;
+						status = (String) arr.get(i).status;
+						size = (String) arr.get(i).size;
+						date = (String) arr.get(i).date;
+						timeStart = (String) arr.get(i).timeStart;
+						timeEnd = (String) arr.get(i).timeEnd;
+
+						ListSearch listSearch = new ListSearch();
 					
-					System.out.println(arr.get(i).size);
-                    room = (String)arr.get(i).room;
-                    status = (String)arr.get(i).status;
-					size =  (String)arr.get(i).size;
-                    date = (String)arr.get(i).date;
-                    timeStart = (String)arr.get(i).timeStart;
-                    timeEnd = (String)arr.get(i).timeEnd;
-					ListSearch listSearch = new ListSearch();
+							listSearch.size.setText(size);
+							listSearch.date.setText(date);
+							listSearch.room.setText(room);
+							listSearch.status.setText(status);
+							listSearch.timeStart.setText(timeStart);
+							listSearch.timeEnd.setText(timeEnd);
+							panel.add(listSearch.pannelsearch());
+							panel.revalidate();
+							int height = (int) panel.getPreferredSize().getHeight();
+							scroll.getVerticalScrollBar().setValue(height);
 					
-					listSearch.size.setText(size);
-					listSearch.date.setText(date);
-					listSearch.room.setText(room);
-					listSearch.status.setText(status);
-					listSearch.timeStart.setText(timeStart);
-					listSearch.timeEnd.setText(timeEnd);
-					panel.add(listSearch.pannelsearch());
-					panel.revalidate();
-					int height = (int) panel.getPreferredSize().getHeight();
-					scroll.getVerticalScrollBar().setValue(height);
-				}
+					}
 				}
 
 			}
 		});
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		search.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				panellist.setVisible(true);
@@ -217,14 +213,16 @@ public class FormSearch extends JFrame {
 				panel6.setVisible(true);
 			}
 		});
-		btnNewButton.setBackground(new Color(204, 204, 153));
-		btnNewButton.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 25));
-		btnNewButton.setBounds(468, 155, 87, 25);
-		getContentPane().add(btnNewButton);
+		search.setBackground(new Color(204, 204, 153));
+		search.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 25));
+		search.setBounds(468, 155, 87, 25);
+		getContentPane().add(search);
 
-		
 		dateChooser.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 20));
 		dateChooser.setBounds(221, 93, 177, 36);
+		
+		Date date = new Date();
+		dateChooser.setDate(date);
 		getContentPane().add(dateChooser);
 
 		panel1.setBackground(new Color(204, 153, 102));
@@ -304,9 +302,15 @@ class ListSearch extends JPanel {
 	JLabel timeStart;
 	JLabel timeEnd;
 	JLabel status;
+	JCheckBox status2;
 
 	public ListSearch() {
 		pannel.setBackground(Color.WHITE);
+		
+		status2 = new JCheckBox("");
+		status2.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		status2.setBounds(798, 11, 100, 40);
+		pannel.add(status2);
 
 		room = new JLabel("New label");
 		room.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
@@ -352,6 +356,8 @@ class ListSearch extends JPanel {
 		status.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
 		status.setBounds(798, 11, 100, 40);
 		pannel.add(status);
+		
+
 
 	}
 
@@ -383,6 +389,9 @@ class ListSearch extends JPanel {
 
 	public void setlabelStatus(String txt) {
 		this.status.setText(txt);
+	}
+	public void setJCheckBoxStatus(String txt) {
+		this.status2.setText(txt);
 	}
 
 }
